@@ -24,13 +24,13 @@ async def start(client, message):
     )
 
 
-@tgraph.on_message(filters.photo | filters.animation)
+@tgraph.on_message(filters.photo | filters.animation | filters.video)
 async def getimage(client, message):
     dwn = await message.reply_text("Downloading to my server...", True)
-    img_path = await message.download()
+    file_path = await message.download()
     await dwn.edit_text("Uploading as telegra.ph link...")
     try:
-        url_path = upload_file(img_path)[0]
+        url_path = upload_file(file_path)[0]
     except Exception as error:
         await dwn.edit_text(f"Oops something went wrong\n{error}")
         return
@@ -51,7 +51,7 @@ async def getimage(client, message):
             ]
         )
     )
-    os.remove(img_path)
+    os.remove(file_path)
 
 
 tgraph.run()
