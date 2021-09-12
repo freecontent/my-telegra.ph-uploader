@@ -24,7 +24,7 @@ async def start(client, message):
     )
 
 
-@tgraph.on_message(filters.photo)
+@tgraph.on_message(filters.photo | filters.animation)
 async def getimage(client, message):
     dwn = await message.reply_text("Downloading to my server...", True)
     img_path = await message.download()
